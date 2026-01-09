@@ -78,11 +78,16 @@ class LinkCreate(BaseModel):
     platform: str
     url: str
     active: bool = True
+    order: Optional[int] = None
 
 class LinkUpdate(BaseModel):
     platform: Optional[str] = None
     url: Optional[str] = None
     active: Optional[bool] = None
+    order: Optional[int] = None
+
+class LinkReorder(BaseModel):
+    link_ids: List[str]
 
 class PasswordReset(BaseModel):
     email: EmailStr
