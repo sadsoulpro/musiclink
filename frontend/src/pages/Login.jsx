@@ -90,6 +90,11 @@ export default function Login() {
                   data-testid="login-password-input"
                   className="h-12 bg-zinc-900 border-zinc-800 focus:border-primary"
                 />
+                <div className="text-right">
+                  <Link to="/forgot-password" className="text-sm text-primary hover:underline" data-testid="forgot-password-link">
+                    Забыли пароль?
+                  </Link>
+                </div>
               </div>
               
               <Button 
