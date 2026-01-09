@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,11 +9,13 @@ import { api } from "@/App";
 import { toast } from "sonner";
 import { 
   Music, ArrowLeft, Upload, Plus, Trash2, 
-  GripVertical, ExternalLink, Save, ChevronUp, ChevronDown
+  GripVertical, ExternalLink, Save, ChevronUp, ChevronDown,
+  QrCode, Download, Search, Loader2
 } from "lucide-react";
 import { FaSpotify, FaApple, FaYoutube, FaSoundcloud, FaLink, FaYandex, FaVk } from "react-icons/fa";
 import { SiTidal } from "react-icons/si";
 import { motion } from "framer-motion";
+import { QRCodeSVG } from "qrcode.react";
 
 const PLATFORMS = [
   { id: "spotify", name: "Spotify", icon: FaSpotify, color: "#1DB954" },
