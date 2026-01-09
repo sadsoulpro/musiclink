@@ -880,6 +880,20 @@ export default function PageBuilder() {
                     )}
                   </div>
                   
+                  {/* QR Code in Preview */}
+                  {qrEnabled && formData.slug && (
+                    <div className="mt-4 p-2 bg-white rounded-lg">
+                      <QRCodeSVG
+                        value={getPublicUrl()}
+                        size={60}
+                        level="L"
+                        includeMargin={false}
+                        bgColor="#ffffff"
+                        fgColor="#18181b"
+                      />
+                    </div>
+                  )}
+                  
                   {/* Footer */}
                   <div className="mt-auto pt-4">
                     <p className="text-[10px] text-zinc-500">Powered by MyTrack.cc</p>
