@@ -134,7 +134,7 @@ export default function Register() {
           <div className="w-32 h-32 rounded-2xl bg-primary/20 flex items-center justify-center mx-auto mb-6">
             <Music className="w-16 h-16 text-primary" />
           </div>
-          <h2 className="font-display text-4xl mb-4">JOIN MYTRACK.CC</h2>
+          <h2 className="font-display text-4xl mb-4">JOIN MYTRACK</h2>
           <p className="text-muted-foreground max-w-sm">
             Create beautiful smart link pages for your music releases. Free to use.
           </p>
