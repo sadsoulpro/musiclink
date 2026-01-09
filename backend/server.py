@@ -461,8 +461,7 @@ async def admin_block_user(user_id: str, admin_user: dict = Depends(get_admin_us
     return {"message": f"User {new_status}", "status": new_status}
 
 @api_router.put("/admin/pages/{page_id}/disable")
-async def admin_disable_page(page_id: str, authorization: str = None):
-    await get_admin_user(authorization)
+async def admin_disable_page(page_id: str, admin_user: dict = Depends(get_admin_user)):
     page = await db.pages.find_one({"id": page_id})
     if not page:
         raise HTTPException(status_code=404, detail="Page not found")
