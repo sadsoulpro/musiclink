@@ -431,7 +431,29 @@ export default function PageBuilder() {
                     className="flex items-center gap-3 p-3 rounded-xl bg-zinc-900/50 border border-white/5"
                     data-testid={`link-item-${link.id}`}
                   >
-                    <GripVertical className="w-4 h-4 text-muted-foreground cursor-move" />
+                    {/* Move Up/Down Buttons */}
+                    <div className="flex flex-col gap-0.5">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-6 w-6 text-muted-foreground hover:text-foreground disabled:opacity-30"
+                        onClick={() => moveLink(i, -1)}
+                        disabled={i === 0}
+                        data-testid={`move-up-${link.id}`}
+                      >
+                        <ChevronUp className="w-4 h-4" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-6 w-6 text-muted-foreground hover:text-foreground disabled:opacity-30"
+                        onClick={() => moveLink(i, 1)}
+                        disabled={i === links.length - 1}
+                        data-testid={`move-down-${link.id}`}
+                      >
+                        <ChevronDown className="w-4 h-4" />
+                      </Button>
+                    </div>
                     <div 
                       className="w-10 h-10 rounded-lg flex items-center justify-center"
                       style={{ backgroundColor: platform.color }}
