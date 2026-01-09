@@ -106,16 +106,16 @@ export default function Landing() {
       </section>
       
       {/* Features Section */}
-      <section className="relative z-10 px-6 py-20 bg-zinc-900/50">
+      <section className="relative z-10 px-4 sm:px-6 py-12 sm:py-20 bg-zinc-900/50">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="font-display text-3xl sm:text-4xl mb-4">EVERYTHING YOU NEED</h2>
-            <p className="text-muted-foreground max-w-md mx-auto">
+          <div className="text-center mb-10 sm:mb-16">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-3 sm:mb-4">EVERYTHING YOU NEED</h2>
+            <p className="text-muted-foreground text-sm sm:text-base max-w-md mx-auto px-4">
               Simple tools to share your music and grow your audience
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {[
               {
                 icon: Link2,
