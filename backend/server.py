@@ -450,8 +450,7 @@ async def admin_get_pages(admin_user: dict = Depends(get_admin_user)):
     return pages
 
 @api_router.put("/admin/users/{user_id}/block")
-async def admin_block_user(user_id: str, authorization: str = None):
-    await get_admin_user(authorization)
+async def admin_block_user(user_id: str, admin_user: dict = Depends(get_admin_user)):
     user = await db.users.find_one({"id": user_id})
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
