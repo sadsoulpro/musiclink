@@ -28,7 +28,7 @@ export default function Register() {
     
     try {
       await register(email, username, password);
-      toast.success("Account created! Welcome to BandLink!");
+      toast.success("Account created! Welcome to MyTrack.cc!");
       navigate("/dashboard");
     } catch (error) {
       toast.error(error.response?.data?.detail || "Registration failed");
@@ -56,7 +56,7 @@ export default function Register() {
               <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
                 <Music className="w-5 h-5 text-white" />
               </div>
-              <span className="font-display text-2xl">BANDLINK</span>
+              <span className="font-display text-2xl">MYTRACK.CC</span>
             </div>
             
             <h1 className="text-3xl font-semibold mb-2">Create your account</h1>
@@ -134,7 +134,7 @@ export default function Register() {
           <div className="w-32 h-32 rounded-2xl bg-primary/20 flex items-center justify-center mx-auto mb-6">
             <Music className="w-16 h-16 text-primary" />
           </div>
-          <h2 className="font-display text-4xl mb-4">JOIN BANDLINK</h2>
+          <h2 className="font-display text-4xl mb-4">JOIN MYTRACK.CC</h2>
           <p className="text-muted-foreground max-w-sm">
             Create beautiful smart link pages for your music releases. Free to use.
           </p>

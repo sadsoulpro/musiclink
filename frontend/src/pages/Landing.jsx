@@ -15,7 +15,7 @@ export default function Landing() {
           <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
             <Music className="w-5 h-5 text-white" />
           </div>
-          <span className="font-display text-2xl tracking-tight">BANDLINK</span>
+          <span className="font-display text-2xl tracking-tight">MYTRACK.CC</span>
         </div>
         
         <div className="flex items-center gap-4">
@@ -159,7 +159,7 @@ export default function Landing() {
             START SHARING<br />YOUR MUSIC TODAY
           </h2>
           <p className="text-muted-foreground text-lg mb-8">
-            Join thousands of artists using BandLink to reach their fans.
+            Join thousands of artists using MyTrack.cc to reach their fans.
           </p>
           <Link to="/register">
             <Button 
@@ -179,9 +179,9 @@ export default function Landing() {
             <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
               <Music className="w-4 h-4 text-white" />
             </div>
-            <span className="font-display text-lg">BANDLINK</span>
+            <span className="font-display text-lg">MYTRACK.CC</span>
           </div>
-          <p className="text-muted-foreground text-sm">© 2024 BandLink. All rights reserved.</p>
+          <p className="text-muted-foreground text-sm">© 2024 MyTrack.cc. All rights reserved.</p>
         </div>
       </footer>
     </div>

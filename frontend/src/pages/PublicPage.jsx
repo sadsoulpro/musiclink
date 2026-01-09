@@ -63,14 +63,14 @@ export default function PublicPage() {
     };
 
     // Set page title
-    document.title = `${title} | BandLink`;
+    document.title = `${title} | MyTrack.cc`;
 
     // Open Graph tags
     setMetaTag('og:title', title);
     setMetaTag('og:description', description);
     setMetaTag('og:url', pageUrl);
     setMetaTag('og:type', 'music.song');
-    setMetaTag('og:site_name', 'BandLink');
+    setMetaTag('og:site_name', 'MyTrack.cc');
     if (coverUrl) {
       setMetaTag('og:image', coverUrl);
       setMetaTag('og:image:width', '1000');
@@ -87,7 +87,7 @@ export default function PublicPage() {
 
     // Cleanup on unmount
     return () => {
-      document.title = 'BandLink';
+      document.title = 'MyTrack.cc';
     };
   }, [page, slug]);
 
@@ -255,7 +255,7 @@ export default function PublicPage() {
             <div className="w-5 h-5 rounded bg-primary/20 flex items-center justify-center">
               <Music className="w-3 h-3 text-primary" />
             </div>
-            Powered by BandLink
+            Powered by MyTrack.cc
           </a>
         </motion.div>
       </motion.div>
