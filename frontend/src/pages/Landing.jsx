@@ -20,11 +20,11 @@ export default function Landing() {
         
         <div className="flex items-center gap-2 sm:gap-4">
           <Link to="/login">
-            <Button variant="ghost" data-testid="nav-login-btn" className="px-3 sm:px-4">Log In</Button>
+            <Button variant="ghost" data-testid="nav-login-btn" className="px-3 sm:px-4">Войти</Button>
           </Link>
           <Link to="/register">
             <Button data-testid="nav-signup-btn" className="bg-primary hover:bg-primary/90 rounded-full px-4 sm:px-6 text-sm sm:text-base">
-              Get Started
+              Начать
             </Button>
           </Link>
         </div>
@@ -39,12 +39,12 @@ export default function Landing() {
             transition={{ duration: 0.6 }}
           >
             <h1 className="font-display text-4xl sm:text-5xl lg:text-7xl tracking-tight leading-none mb-4 sm:mb-6">
-              ONE LINK<br />
-              <span className="text-primary">ALL YOUR</span><br />
-              MUSIC
+              ОДНА ССЫЛКА<br />
+              <span className="text-primary">ВСЯ ТВОЯ</span><br />
+              МУЗЫКА
             </h1>
             <p className="text-muted-foreground text-base sm:text-lg mb-6 sm:mb-8 max-w-md">
-              Create stunning smart link pages for your releases. Share one link, reach fans everywhere.
+              Создавайте стильные страницы для ваших релизов. Одна ссылка — все платформы.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Link to="/register">
@@ -52,7 +52,7 @@ export default function Landing() {
                   data-testid="hero-get-started-btn"
                   className="w-full sm:w-auto bg-primary hover:bg-primary/90 rounded-full px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg font-semibold shadow-lg shadow-primary/20 transition-all hover:scale-105"
                 >
-                  Create Your Page
+                  Создать страницу
                 </Button>
               </Link>
               <Link to="/demo">
@@ -61,7 +61,7 @@ export default function Landing() {
                   data-testid="hero-demo-btn"
                   className="w-full sm:w-auto rounded-full px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg border-white/10 hover:bg-white/5"
                 >
-                  View Demo
+                  Демо
                 </Button>
               </Link>
             </div>
@@ -81,8 +81,8 @@ export default function Landing() {
                   {/* Mock Content */}
                   <div className="p-6 pt-12 flex flex-col items-center text-center">
                     <div className="w-24 h-24 rounded-xl bg-gradient-to-br from-fuchsia-500 to-purple-600 mb-4" />
-                    <h3 className="font-display text-xl">ARTIST NAME</h3>
-                    <p className="text-sm text-muted-foreground mb-6">New Single Out Now</p>
+                    <h3 className="font-display text-xl">ИМЯ АРТИСТА</h3>
+                    <p className="text-sm text-muted-foreground mb-6">Новый сингл уже доступен</p>
                     
                     <div className="w-full space-y-3">
                       {["Spotify", "Apple Music", "YouTube"].map((platform, i) => (
@@ -109,9 +109,9 @@ export default function Landing() {
       <section className="relative z-10 px-4 sm:px-6 py-12 sm:py-20 bg-zinc-900/50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10 sm:mb-16">
-            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-3 sm:mb-4">EVERYTHING YOU NEED</h2>
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl mb-3 sm:mb-4">ВСЁ ЧТО НУЖНО</h2>
             <p className="text-muted-foreground text-sm sm:text-base max-w-md mx-auto px-4">
-              Simple tools to share your music and grow your audience
+              Простые инструменты для продвижения музыки и роста аудитории
             </p>
           </div>
           
@@ -119,18 +119,18 @@ export default function Landing() {
             {[
               {
                 icon: Link2,
-                title: "Smart Links",
-                description: "One link that works across all platforms. Spotify, Apple Music, YouTube, and more."
+                title: "Умные ссылки",
+                description: "Одна ссылка для всех платформ. Spotify, Apple Music, YouTube и другие."
               },
               {
                 icon: BarChart3,
-                title: "Analytics",
-                description: "Track views and clicks. Know where your fans are coming from."
+                title: "Аналитика",
+                description: "Отслеживайте просмотры и клики. Узнайте откуда приходят ваши фанаты."
               },
               {
                 icon: Zap,
-                title: "Instant Setup",
-                description: "Create your page in minutes. No coding required."
+                title: "Быстрый старт",
+                description: "Создайте страницу за минуты. Без программирования."
               }
             ].map((feature, i) => (
               <motion.div
@@ -156,17 +156,17 @@ export default function Landing() {
       <section className="relative z-10 px-4 sm:px-6 py-16 sm:py-24">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl mb-4 sm:mb-6">
-            START SHARING<br />YOUR MUSIC TODAY
+            НАЧНИ ДЕЛИТЬСЯ<br />МУЗЫКОЙ СЕГОДНЯ
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg mb-6 sm:mb-8 px-4">
-            Join thousands of artists using MyTrack to reach their fans.
+            Присоединяйтесь к тысячам артистов, использующих MyTrack.
           </p>
           <Link to="/register">
             <Button 
               data-testid="cta-get-started-btn"
               className="bg-primary hover:bg-primary/90 rounded-full px-8 sm:px-10 py-5 sm:py-6 text-base sm:text-lg font-semibold"
             >
-              Get Started Free
+              Начать бесплатно
             </Button>
           </Link>
         </div>
@@ -181,7 +181,7 @@ export default function Landing() {
             </div>
             <span className="font-display text-lg">MYTRACK</span>
           </div>
-          <p className="text-muted-foreground text-sm text-center sm:text-left">© 2026 MyTrack. All rights reserved.</p>
+          <p className="text-muted-foreground text-sm text-center sm:text-left">© 2026 MyTrack. Все права защищены.</p>
         </div>
       </footer>
     </div>
