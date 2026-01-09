@@ -278,7 +278,7 @@ export default function PublicPage() {
             <div className="w-5 h-5 rounded bg-primary/20 flex items-center justify-center">
               <Music className="w-3 h-3 text-primary" />
             </div>
-            Powered by MyTrack.cc
+            Powered by MyTrack
           </a>
         </motion.div>
       </motion.div>
