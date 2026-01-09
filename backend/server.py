@@ -210,8 +210,7 @@ async def reset_password(data: PasswordReset):
     return {"message": "If email exists, reset instructions will be sent"}
 
 @api_router.get("/auth/me", response_model=UserResponse)
-async def get_me(authorization: str = None):
-    user = await get_current_user(authorization)
+async def get_me(user: dict = Depends(get_current_user)):
     return {
         "id": user["id"],
         "email": user["email"],
