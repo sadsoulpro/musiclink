@@ -671,6 +671,80 @@ export default function PageBuilder() {
               )}
             </div>
           </section>
+          
+          {/* QR Code Section */}
+          <section>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <QrCode className="w-5 h-5 text-primary" />
+                <h2 className="text-lg font-semibold">QR Code</h2>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-muted-foreground">
+                  {qrEnabled ? "Enabled" : "Disabled"}
+                </span>
+                <Switch
+                  checked={qrEnabled}
+                  onCheckedChange={setQrEnabled}
+                  data-testid="qr-toggle"
+                />
+              </div>
+            </div>
+            
+            {qrEnabled && formData.slug && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="p-6 rounded-xl bg-zinc-900/50 border border-white/5"
+              >
+                <div className="flex flex-col sm:flex-row items-center gap-6">
+                  <div 
+                    ref={qrRef}
+                    className="p-4 bg-white rounded-xl"
+                  >
+                    <QRCodeSVG
+                      value={getPublicUrl()}
+                      size={160}
+                      level="H"
+                      includeMargin={false}
+                      bgColor="#ffffff"
+                      fgColor="#18181b"
+                    />
+                  </div>
+                  <div className="flex-1 text-center sm:text-left">
+                    <p className="text-sm text-muted-foreground mb-2">
+                      Scan to open your page
+                    </p>
+                    <p className="text-xs text-zinc-500 mb-4 font-mono break-all">
+                      {getPublicUrl()}
+                    </p>
+                    <Button
+                      onClick={downloadQRCode}
+                      variant="outline"
+                      className="rounded-full"
+                      data-testid="download-qr-btn"
+                    >
+                      <Download className="w-4 h-4 mr-2" />
+                      Download PNG
+                    </Button>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+            
+            {qrEnabled && !formData.slug && (
+              <p className="text-center text-muted-foreground py-6 border border-dashed border-zinc-800 rounded-xl">
+                Enter a URL slug above to generate QR code
+              </p>
+            )}
+            
+            {!qrEnabled && (
+              <p className="text-center text-muted-foreground py-6 border border-dashed border-zinc-800 rounded-xl">
+                QR code is disabled
+              </p>
+            )}
+          </section>
         </div>
         
         {/* Live Preview */}
