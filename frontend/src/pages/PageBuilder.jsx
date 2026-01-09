@@ -282,33 +282,27 @@ export default function PageBuilder() {
         }
       } else if (isAppleMusicLink) {
         // Parse Apple Music URL
+        // Format: https://music.apple.com/us/album/album-name/ALBUMID?i=TRACKID
         const urlParts = scanInput.split("/");
         const albumIndex = urlParts.findIndex(p => p === "album");
-        let trackId = "";
         
         if (albumIndex > -1 && urlParts[albumIndex + 1]) {
           searchQuery = urlParts[albumIndex + 1].replace(/-/g, " ");
         }
         
-        // Check for specific track ID in URL (?i=xxxxx)
-        const trackMatch = scanInput.match(/[?&]i=(\d+)/);
-        if (trackMatch) {
-          trackId = trackMatch[1];
-        }
+        // Extract album ID from URL (the number after album name)
+        const albumIdMatch = scanInput.match(/\/album\/[^/]+\/(\d+)/);
+        const albumId = albumIdMatch ? albumIdMatch[1] : null;
         
-        // Fetch cover art from iTunes API using track/album ID or search
+        // Fetch cover art from iTunes API using album ID
         try {
           let itunesUrl;
-          if (trackId) {
-            itunesUrl = `https://itunes.apple.com/lookup?id=${trackId}&entity=song`;
+          if (albumId) {
+            // Use album ID for lookup - most reliable
+            itunesUrl = `https://itunes.apple.com/lookup?id=${albumId}`;
           } else {
-            // Extract album ID from URL if present
-            const albumIdMatch = scanInput.match(/\/album\/[^/]+\/(\d+)/);
-            if (albumIdMatch) {
-              itunesUrl = `https://itunes.apple.com/lookup?id=${albumIdMatch[1]}&entity=album`;
-            } else {
-              itunesUrl = `https://itunes.apple.com/search?term=${encodeURIComponent(searchQuery)}&media=music&limit=1`;
-            }
+            // Fallback to search
+            itunesUrl = `https://itunes.apple.com/search?term=${encodeURIComponent(searchQuery)}&media=music&limit=1`;
           }
           
           const itunesResponse = await fetch(itunesUrl);
