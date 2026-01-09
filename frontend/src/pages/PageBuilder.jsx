@@ -73,6 +73,7 @@ export default function PageBuilder() {
         cover_image: response.data.cover_image || "",
       });
       setLinks(response.data.links || []);
+      setQrEnabled(response.data.qr_enabled !== false);
     } catch (error) {
       toast.error("Failed to load page");
       navigate("/dashboard");
