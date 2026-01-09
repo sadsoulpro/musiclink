@@ -252,21 +252,14 @@ export default function PageBuilder() {
       let sourceUrl = scanInput.trim();
 
       if (isSpotifyLink) {
-        // Parse Spotify URL and fetch cover from oEmbed
+        // Use backend proxy for Spotify oEmbed
         try {
-          const oembedResponse = await fetch(`https://open.spotify.com/oembed?url=${encodeURIComponent(scanInput)}`);
-          if (oembedResponse.ok) {
-            const oembedData = await oembedResponse.json();
-            if (oembedData.title) {
-              searchQuery = oembedData.title;
-            }
-            // Get high-res cover from thumbnail (replace size)
-            if (oembedData.thumbnail_url) {
-              // Spotify thumbnails can be resized by changing the URL
-              coverArtUrl = oembedData.thumbnail_url.replace(/\/\d+$/, '').replace('i.scdn.co/image/', 'i.scdn.co/image/');
-              // If that doesn't work, use original
-              if (!coverArtUrl) coverArtUrl = oembedData.thumbnail_url;
-            }
+          const response = await api.get(`/lookup/spotify?url=${encodeURIComponent(scanInput)}`);
+          if (response.data.title) {
+            searchQuery = response.data.title;
+          }
+          if (response.data.artwork) {
+            coverArtUrl = response.data.artwork;
           }
         } catch (e) {
           console.log("Could not fetch Spotify metadata");
