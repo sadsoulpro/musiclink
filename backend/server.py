@@ -436,8 +436,7 @@ async def admin_get_users(admin_user: dict = Depends(get_admin_user)):
     return users
 
 @api_router.get("/admin/pages")
-async def admin_get_pages(authorization: str = None):
-    await get_admin_user(authorization)
+async def admin_get_pages(admin_user: dict = Depends(get_admin_user)):
     pages = await db.pages.find({}, {"_id": 0}).to_list(1000)
     
     # Get user info and clicks for each page
