@@ -265,7 +265,7 @@ export default function PageBuilder() {
               <div className="space-y-2">
                 <Label htmlFor="slug">URL Slug</Label>
                 <div className="flex items-center">
-                  <span className="text-muted-foreground text-sm mr-2">/artist/</span>
+                  <span className="text-muted-foreground text-sm mr-2">/</span>
                   <Input
                     id="slug"
                     name="slug"
