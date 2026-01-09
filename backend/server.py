@@ -228,13 +228,113 @@ async def login(data: UserLogin):
         }
     }
 
-@api_router.post("/auth/reset-password")
-async def reset_password(data: PasswordReset):
-    user = await db.users.find_one({"email": data.email})
+@api_router.post("/auth/forgot-password")
+async def forgot_password(data: ForgotPasswordRequest):
+    """Send password reset email"""
+    user = await db.users.find_one({"email": data.email}, {"_id": 0})
+    
+    # Always return success to prevent email enumeration
     if not user:
-        return {"message": "If email exists, reset instructions will be sent"}
-    # In MVP, just return success message (no actual email sending)
-    return {"message": "If email exists, reset instructions will be sent"}
+        return {"message": "Если email существует, инструкции по сбросу пароля будут отправлены"}
+    
+    # Generate reset token (valid for 1 hour)
+    reset_token = secrets.token_urlsafe(32)
+    reset_expiry = datetime.now(timezone.utc) + timedelta(hours=1)
+    
+    # Store reset token in database
+    await db.users.update_one(
+        {"id": user["id"]},
+        {"$set": {
+            "reset_token": reset_token,
+            "reset_token_expiry": reset_expiry.isoformat()
+        }}
+    )
+    
+    # Build reset URL
+    reset_url = f"{FRONTEND_URL}/reset-password?token={reset_token}"
+    
+    # Send email via Resend
+    if RESEND_API_KEY:
+        html_content = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <title>Сброс пароля MyTrack</title>
+        </head>
+        <body style="font-family: Arial, sans-serif; background-color: #18181b; color: #ffffff; padding: 40px;">
+            <div style="max-width: 600px; margin: 0 auto; background-color: #27272a; border-radius: 16px; padding: 40px;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h1 style="color: #d946ef; margin: 0;">MYTRACK</h1>
+                </div>
+                <h2 style="color: #ffffff; margin-bottom: 20px;">Сброс пароля</h2>
+                <p style="color: #a1a1aa; line-height: 1.6;">
+                    Привет, {user.get('username', 'пользователь')}!
+                </p>
+                <p style="color: #a1a1aa; line-height: 1.6;">
+                    Мы получили запрос на сброс пароля для вашей учётной записи. Нажмите на кнопку ниже, чтобы создать новый пароль:
+                </p>
+                <div style="text-align: center; margin: 30px 0;">
+                    <a href="{reset_url}" style="display: inline-block; background-color: #d946ef; color: #ffffff; padding: 14px 32px; border-radius: 30px; text-decoration: none; font-weight: bold;">
+                        Сбросить пароль
+                    </a>
+                </div>
+                <p style="color: #a1a1aa; line-height: 1.6; font-size: 14px;">
+                    Ссылка действительна в течение 1 часа. Если вы не запрашивали сброс пароля, просто проигнорируйте это письмо.
+                </p>
+                <hr style="border: none; border-top: 1px solid #3f3f46; margin: 30px 0;">
+                <p style="color: #71717a; font-size: 12px; text-align: center;">
+                    © 2026 MyTrack. Все права защищены.
+                </p>
+            </div>
+        </body>
+        </html>
+        """
+        
+        try:
+            params = {
+                "from": SENDER_EMAIL,
+                "to": [data.email],
+                "subject": "Сброс пароля MyTrack",
+                "html": html_content
+            }
+            await asyncio.to_thread(resend.Emails.send, params)
+            logging.info(f"Password reset email sent to {data.email}")
+        except Exception as e:
+            logging.error(f"Failed to send reset email: {str(e)}")
+            # Don't expose email sending errors to user
+    
+    return {"message": "Если email существует, инструкции по сбросу пароля будут отправлены"}
+
+@api_router.post("/auth/reset-password")
+async def reset_password(data: ResetPasswordRequest):
+    """Reset password using token"""
+    if len(data.new_password) < 6:
+        raise HTTPException(status_code=400, detail="Пароль должен содержать минимум 6 символов")
+    
+    # Find user with valid reset token
+    user = await db.users.find_one({"reset_token": data.token}, {"_id": 0})
+    
+    if not user:
+        raise HTTPException(status_code=400, detail="Недействительная или просроченная ссылка для сброса пароля")
+    
+    # Check token expiry
+    expiry_str = user.get("reset_token_expiry")
+    if expiry_str:
+        expiry = datetime.fromisoformat(expiry_str.replace('Z', '+00:00'))
+        if datetime.now(timezone.utc) > expiry:
+            raise HTTPException(status_code=400, detail="Ссылка для сброса пароля истекла")
+    
+    # Update password and clear reset token
+    await db.users.update_one(
+        {"id": user["id"]},
+        {
+            "$set": {"password_hash": hash_password(data.new_password)},
+            "$unset": {"reset_token": "", "reset_token_expiry": ""}
+        }
+    )
+    
+    return {"message": "Пароль успешно изменён"}
 
 @api_router.get("/auth/me", response_model=UserResponse)
 async def get_me(user: dict = Depends(get_current_user)):
