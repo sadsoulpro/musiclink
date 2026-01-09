@@ -404,8 +404,7 @@ async def track_click(link_id: str, referrer: Optional[str] = None):
 # ===================== ANALYTICS ROUTES =====================
 
 @api_router.get("/analytics/{page_id}")
-async def get_page_analytics(page_id: str, authorization: str = None):
-    user = await get_current_user(authorization)
+async def get_page_analytics(page_id: str, user: dict = Depends(get_current_user)):
     page = await db.pages.find_one({"id": page_id, "user_id": user["id"]}, {"_id": 0})
     if not page:
         raise HTTPException(status_code=404, detail="Page not found")
