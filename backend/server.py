@@ -401,7 +401,7 @@ async def get_public_page(slug: str):
     # Increment view count
     await db.pages.update_one({"slug": slug}, {"$inc": {"views": 1}})
     
-    links = await db.links.find({"page_id": page["id"], "active": True}, {"_id": 0}).to_list(100)
+    links = await db.links.find({"page_id": page["id"], "active": True}, {"_id": 0}).sort("order", 1).to_list(100)
     page["links"] = links
     page["views"] = page.get("views", 0) + 1
     
