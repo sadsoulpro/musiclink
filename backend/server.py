@@ -474,8 +474,7 @@ async def admin_disable_page(page_id: str, admin_user: dict = Depends(get_admin_
 # ===================== FILE UPLOAD =====================
 
 @api_router.post("/upload")
-async def upload_file(file: UploadFile = File(...), authorization: str = None):
-    await get_current_user(authorization)
+async def upload_file(file: UploadFile = File(...), user: dict = Depends(get_current_user)):
     
     # Validate file type
     allowed_types = ["image/jpeg", "image/png", "image/webp", "image/gif"]
